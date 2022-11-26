@@ -42,9 +42,9 @@ export default function Index() {
 
 			<Tutors />
 
-			<section className="mt-100">
+			<section style={{ margin: "100px 0px 200px 0px" }}>
 				<div className="container mx-auto items-center">
-					<div className="text-center font-20 pb-5 pt-10">Frequently asked questions</div>
+					<div className="text-center font-20 pb-5 pt-10 text-2xl">Frequently asked questions</div>
 					<div>
 						<Collapse accordion>
 							<Panel header="What are Preply group classes?" key="1">
@@ -62,7 +62,7 @@ export default function Index() {
 			</section>
 
 
-			<section className="mt-48 md:mt-40 pb-40 relative bg-blueGray-100">
+			{/* <section className="mt-48 md:mt-40 pb-40 relative bg-blueGray-100">
 				<div
 					className="-mt-20 top-0 bottom-auto left-0 right-0 w-full absolute h-20"
 					style={{ transform: "translateZ(0)" }}
@@ -497,7 +497,7 @@ export default function Index() {
 						</div>
 					</div>
 				</div>
-			</section>
+			</section> */}
 		</>
 	);
 }
