@@ -1,15 +1,25 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React, { useState, useEffect } from "react"
 import { Link } from "react-router-dom";
-import { Select, Col, Row, Button, Pagination, Modal, DatePicker, message, notification, Space, Tooltip } from "antd";
+import { Select, Col, Row, Button, Pagination, Modal, DatePicker, message, notification, Space, Tooltip, Input } from "antd";
 import axios from "axios"
 import ReactCountryFlag from "react-country-flag"
 import ScheduleSelector from 'react-schedule-selector'
 import jwt_decode from 'jwt-decode';
 import moment from "moment"
 import { SmileOutlined } from '@ant-design/icons';
+import { useSelector, useDispatch } from "react-redux";
+import Shcedule from "./schedule";
+import {
+    toggle_side_message_box
+} from "redux/actions";
 
 const Tutor = () => {
+    const dispatch = useDispatch();
+    var userInfo = useSelector((state) => state.auth);
+    
+
+
     const [api, contextHolder] = notification.useNotification();
     const [schedule, setSchedule] = useState([])
     const [userschedule, setUserSchedule] = useState([])
@@ -17,6 +27,12 @@ const Tutor = () => {
     const [current, setCurrent] = useState(1);
     const [tutors, setTutors] = useState({});
     const [tutorEmail, setTutorEmail] = useState("");
+    const [sendMessageText, setSendMessageText] = useState("");
+    // modal 
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [messageModal, setMessageModal] = useState(false);
+    // get tutor info
+    const [tutorInfo, setTutorInfo] = useState({});
 
     const onChange = (page) => {
         console.log(page);
@@ -61,11 +77,10 @@ const Tutor = () => {
         console.log(`selected ${value}`);
     };
 
-    const [isModalOpen, setIsModalOpen] = useState(false);
-
 
     // modal
     const showModal = (email) => {
+       
         if (!localStorage.getItem('token')) {
             openNotification()
             return
@@ -77,6 +92,19 @@ const Tutor = () => {
             })
         setIsModalOpen(true);
     };
+
+    const showMessageModal = (id) => {
+        setSendMessageText("")
+        if (!localStorage.getItem('token')) {
+            openNotification()
+            return
+        }
+        axios.post(`${process.env.REACT_APP_SERVER_URL}/getTutorById`, { id: id })
+            .then(res => {
+                setTutorInfo(res.data.data[0])
+            })
+        setMessageModal(true);
+    }
 
     const handleOk = () => {
         if (userschedule.length == 0) {
@@ -95,9 +123,28 @@ const Tutor = () => {
             })
     };
 
-    const handleCancel = () => {
-        setIsModalOpen(false);
-    };
+    const handleMessageMoalOk = () => {
+        if (sendMessageText.length < 20) {
+            message.info(`You should type over 20 charactors.`);
+            return
+        }
+
+        var params = {
+            email: jwt_decode(localStorage.getItem('token')).email,
+            emailTo: tutorInfo.email,
+            message: sendMessageText
+        }
+
+        axios.post(`${process.env.REACT_APP_SERVER_URL}/saveMessage`, params)
+            .then(res => {
+                setMessageModal(false)
+                setSendMessageText("")
+                message.success(`Your message successfully send.`);
+                setTimeout(() => {
+                    window.location = `/general/checkout/${tutorInfo.tutor_id}`
+                }, 1000);
+            })
+    }
 
     const handelUserSchedule = (e) => {
         var check = false;
@@ -144,7 +191,7 @@ const Tutor = () => {
         <div>
             {contextHolder}
             <div className="container mx-auto items-center flex flex-wrap">
-                <div className="w-full" style={{ display: "flex" }}>
+                <div className="w-full bg-indigo-100" style={{ display: "flex" }}>
                     <div className="form-group w-full">
                         <label>Topic</label>
                         <Select
@@ -196,13 +243,17 @@ const Tutor = () => {
                 </div>
             </div>
 
-            <Modal title="Basic Modal" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} width={1000}>
+            <Modal title="Book a trial lesson" open={isModalOpen} onOk={handleOk} onCancel={() => setIsModalOpen(false)} width={1000}>
                 <div className="container">
                     <Row >
                         <Col lg={24}>
-                            <DatePicker className='mb-3' onChange={e => Setstart(e)} />
+                            <div className="flex">
+                                <div className="pt-1 mr-3">Select date</div>
+                                <DatePicker className='mb-3' onChange={e => Setstart(e)} />
+                            </div>
                         </Col>
-                        <Col xm={24} sm={24} lg={12}>
+                        <Col className="px-3 pb-3" xs={24} sm={24} lg={12}>
+                            <div className="text-center">Tutor's schedule</div>
                             <ScheduleSelector
                                 startDate={start}
                                 selection={schedule}
@@ -212,7 +263,8 @@ const Tutor = () => {
                                 hourlyChunks={1}
                             />
                         </Col>
-                        <Col xm={24} sm={24} lg={12}>
+                        <Col className="p-3" xs={24} sm={24} lg={12}>
+                            <div className="text-center">Your schedule</div>
                             <ScheduleSelector
                                 startDate={start}
                                 selection={userschedule}
@@ -227,9 +279,16 @@ const Tutor = () => {
                 </div>
             </Modal>
 
+            <Modal okText="Send Message" open={messageModal} onOk={handleMessageMoalOk} onCancel={() => setMessageModal(false)} >
+                <div className="container">
+                    <p className="text-xl text-bold text-center">Contact {tutorInfo.username}</p>
+                    <p className="text-base">Introduce yourself to the tutor, share your learning goals and ask any questions</p>
+                    <Input.TextArea onChange={e => setSendMessageText(e.target.value)} rows={5}>{sendMessageText}</Input.TextArea>
+                </div>
+            </Modal>
+
             <section style={{ marginTop: "30px" }}>
                 <div className="container mx-auto items-center">
-
                     <Row>
                         <Col lg={24}>
                             <Row>
@@ -238,6 +297,7 @@ const Tutor = () => {
                                         <Row key={key} className="tutor_each p-5 mb-5">
                                             <Col lg={6} md={6} xs={6}>
                                                 <img
+                                                    onMouseEnter={console.log(12323)}
                                                     className="w-160 tutorimg"
                                                     src={`${process.env.REACT_APP_SERVER_URL}/` + value.image}
                                                 />
@@ -303,7 +363,7 @@ const Tutor = () => {
                                                     </Col>
                                                     <Col lg={24} xs={12}>
                                                         <Button value={value.email} type="primary" onClick={() => showModal(value.email)} className="w-full mt-3">Book trial Lessson</Button>
-                                                        <Button className="w-full mt-3">Message</Button>
+                                                        <Button onClick={() => showMessageModal(value.tutor_id)} className="w-full mt-3">Message</Button>
                                                     </Col>
                                                 </Row>
                                             </Col>
@@ -316,7 +376,7 @@ const Tutor = () => {
                                 <Col lg={8}>
                                     <div className="pl-5">
                                         <div className="w-full rounded-lg p-5 bg-white">
-                                            2343454354
+                                            <Shcedule />
                                         </div>
                                     </div>
                                 </Col>

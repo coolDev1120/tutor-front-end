@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import ScheduleSelector from 'react-schedule-selector'
-import { Button, message, Steps, DatePicker, Space } from 'antd';
+import { Button, DatePicker, Space } from 'antd';
 import axios from "axios"
 import jwt_decode from 'jwt-decode';
 
 const App = () => {
     const [schedule, setSchedule] = useState("")
-    const [start, Setstart] = useState(new Date)
+    const [start, Setstart] = useState(new Date())
 
     useEffect(() => {
         axios.post(`${process.env.REACT_APP_SERVER_URL}/setting/getSchedule`, { email: jwt_decode(localStorage.getItem('token')).email })

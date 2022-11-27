@@ -11,18 +11,21 @@ import Footer from "components/Footers/Footer.js";
 
 
 // views
-
 import Profile from "views/general/profile/index"
 import Tutor from "views/general/tutor/index"
 import Dashboard from "views/general/dashboard/Index";
 import Become from "views/become/index"
 import Editschedule from "../views/general/editschedule"
 import Myschedule from "../views/general/profile/myschedule"
+import PayByLecture from "views/general/payment/payBylecture"
+import Chatbox from "components/Chatbox/index"
 
-export default function general() {
+const General = () => {
+
   return (
     <>
       <IndexNavbar fixed />
+      <Chatbox />
       <Switch>
         <Route path="/general/dashboard" exact component={(Dashboard)} />
         <Route path="/general/profile" exact component={RequireAuth(Profile)} />
@@ -30,8 +33,9 @@ export default function general() {
         <Route path="/general/become" exact component={RequireAuth(Become)} />
         <Route path="/general/editschedule" exact component={RequireAuth(Editschedule)} />
         <Route path="/general/myschedule" exact component={RequireAuth(Myschedule)} />
-        
-        
+        <Route path="/general/checkout/:id" exact component={RequireAuth(PayByLecture)} />
+
+
         <Redirect from="/general/setting/" to="/general/profile" />
         <Redirect from="/general/" to="/general/dashboard" />
       </Switch>
@@ -39,3 +43,6 @@ export default function general() {
     </>
   );
 }
+
+
+export default General

@@ -2,10 +2,15 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import jwt_decode from 'jwt-decode';
+import { MessageOutlined, QuestionCircleOutlined } from '@ant-design/icons'
 // components
 
 import IndexDropdown from "components/Dropdowns/IndexDropdown.js";
 import { Button, Dropdown, Space } from 'antd';
+import { useSelector, useDispatch } from "react-redux";
+import {
+	toggle_side_message_box
+} from "redux/actions";
 
 const logout = () => {
 	localStorage.removeItem('token');
@@ -40,9 +45,17 @@ const items = [
 ];
 
 export default function Navbar(props) {
+	const dispatch = useDispatch();
 	const [navbarOpen, setNavbarOpen] = useState(false);
 	const [loginState, SetLoginState] = useState(false);
 	const [username, Setusername] = useState('');
+
+	const toogleChatbox = () => {
+		dispatch(
+			toggle_side_message_box()
+		);
+	}
+
 	useEffect(() => {
 		if (localStorage.getItem('token') && jwt_decode(localStorage.getItem('token')).role) {
 			SetLoginState(true)
@@ -83,11 +96,18 @@ export default function Navbar(props) {
 							<li className="flex items-center px-3 py-4">
 								<Link to="/general/myschedule">My schedule</Link>
 							</li>
+							<li className="flex items-center px-3 py-4 mb-1">
+								<MessageOutlined onClick={toogleChatbox} />
+							</li>
+							<li className="flex items-center px-3 py-4 mb-1">
+								<Link to="/general/myschedule"><QuestionCircleOutlined /></Link>
+							</li>
+
 							<li className="flex items-center">
 								{!loginState &&
 									<Link
 										to="/auth/login"
-										className="bg-lightBlue-500 text-white active:bg-lightBlue-600 text-xs font-bold uppercase px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none lg:mr-1 lg:mb-0 ml-3 mb-3 ease-linear transition-all duration-150"
+										className=""
 									>
 										Login
 									</Link>
@@ -95,7 +115,7 @@ export default function Navbar(props) {
 								{loginState &&
 									<Dropdown menu={{ items, }} placement="bottomLeft" >
 										<span className="flex">
-											<img className="w-7 rounded-full" src={`${process.env.REACT_APP_SERVER_URL}/` + jwt_decode(localStorage.getItem('token')).image}  />
+											<img className="w-7 rounded-full" src={`${process.env.REACT_APP_SERVER_URL}/` + jwt_decode(localStorage.getItem('token')).image} />
 											<span className="pt-1.5 pl-3">{username}</span>
 										</span>
 									</Dropdown>
