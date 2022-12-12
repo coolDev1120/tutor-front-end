@@ -8,6 +8,7 @@
     "@paypal/react-paypal-js": "^7.8.1",
     "@popperjs/core": "2.9.1",
     "@tailwindcss/forms": "0.2.1",
+    "@zoomus/websdk": "^2.9.5",
     "antd": "^5.0.0",
     "antd-img-crop": "^4.5.1",
     "autoprefixer": "10.2.5",
