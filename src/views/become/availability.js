@@ -2,9 +2,15 @@ import React, { useState, useEffect } from "react"
 import { Select, Col, Row, Form, Button, Tag } from "antd"
 import axios from "axios"
 import jwt_decode from 'jwt-decode';
+import { useDispatch } from "react-redux";
+import {
+    register_next
+} from "redux/actions";
 
 const Availability = (props) => {
     const [init, SetInit] = useState({});
+    const dispatch = useDispatch();
+
 
     useEffect(() => {
         SetInit(props);
@@ -20,6 +26,9 @@ const Availability = (props) => {
             .catch((err) => {
                 console.log(err.response.data.error);
             });
+        dispatch(
+            register_next()
+        );
     };
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
@@ -53,7 +62,7 @@ const Availability = (props) => {
             <div className="bg-white p-10 w-4/5 mx-auto" >
                 <div className="font-bold border-b-black-500 text-2xl mb-5"> Availability </div>
                 <Row>
-                    <Col lg={12}>
+                    {/* <Col lg={12}>
                         <Form
                             name="basic"
                             layout="vertical"
@@ -71,8 +80,8 @@ const Availability = (props) => {
                                 ))}
                             </Form.Item>
                         </Form>
-                    </Col>
-                    <Col lg={12}>
+                    </Col> */}
+                    <Col lg={24}>
                         <Form
                             name="basic"
                             layout="vertical"

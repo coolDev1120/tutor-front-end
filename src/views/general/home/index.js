@@ -1,5 +1,6 @@
 import React from "react"
 import { Row, Col, Button, Divider } from "antd"
+import { Link } from "react-router-dom";
 import { CloudUploadOutlined } from '@ant-design/icons';
 
 const Home = () => {
@@ -11,7 +12,7 @@ const Home = () => {
                         <div>
                             <p className="text-4xl font-bold pr-10">Online lecture System all over the world</p>
                             <p className="discription">Tutor.com provide you language, computer lecture  and you can enjoy it as you want.</p>
-                            <Button type="primary" size="large" className="py-3 font-bold">GET START</Button>
+                            <Link to="dashboard"><Button type="primary" size="large" className="py-3 font-bold">GET START</Button></Link>
                         </div>
                     </Col>
                     <Col lg={12} md={24} className="px-4 text-center py-4">

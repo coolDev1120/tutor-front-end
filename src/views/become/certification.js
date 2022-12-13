@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from "react"
-import { Input, Form, Button, Row, Col } from "antd"
+import { Input, Form, Button, Row, Col, message } from "antd"
 import TextArea from "antd/es/input/TextArea";
 import axios from "axios"
 import jwt_decode from 'jwt-decode';
+import { useDispatch } from "react-redux";
+import {
+    register_reset
+} from "redux/actions";
 
 const Certification = (props) => {
     const [init, SetInit] = useState({});
+    const dispatch = useDispatch();
 
     useEffect(() => {
         SetInit(props);
@@ -20,6 +25,10 @@ const Certification = (props) => {
             .catch((err) => {
                 console.log(err.response.data.error);
             });
+        message.info(`You have successfully registered. Please wait for administrator's acceptance.`);
+        setTimeout(() => {
+            window.location = "/general/become"
+        }, 3000);
     };
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
@@ -30,7 +39,7 @@ const Certification = (props) => {
             <div className="bg-white p-10 w-4/5 mx-auto" >
                 <div className="font-bold border-b-black-500 text-2xl mb-5"> Certification </div>
                 <Row>
-                    <Col lg={12}>
+                    {/* <Col lg={12}>
                         <Form
                             name="basic"
                             layout="vertical"
@@ -53,8 +62,8 @@ const Certification = (props) => {
                                 <div>{init.data && init.data.cercontent ? init.data.cercontent : ' '}</div>
                             </Form.Item>
                         </Form>
-                    </Col>
-                    <Col lg={12}>
+                    </Col> */}
+                    <Col lg={24}>
                         <Form
                             name="basic"
                             layout="vertical"

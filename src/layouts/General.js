@@ -20,6 +20,7 @@ import Editschedule from "../views/general/editschedule"
 import Myschedule from "../views/general/profile/myschedule"
 import PayByLecture from "views/general/payment/payBylecture"
 import Chatbox from "components/Chatbox/index"
+import Register from "views/become/register"
 
 const General = () => {
 
@@ -32,7 +33,8 @@ const General = () => {
         <Route path="/general/dashboard" exact component={(Dashboard)} />
         <Route path="/general/profile" exact component={RequireAuth(Profile)} />
         <Route path="/general/tutor/:id" exact component={RequireAuth(Tutor)} />
-        <Route path="/general/become" exact component={RequireAuth(Become)} />
+        <Route path="/general/become/" exact component={RequireAuth(Become)} />
+        <Route path="/general/become/register" exact component={RequireAuth(Register)} />
         <Route path="/general/editschedule" exact component={RequireAuth(Editschedule)} />
         <Route path="/general/myschedule" exact component={RequireAuth(Myschedule)} />
         <Route path="/general/checkout/:id" exact component={RequireAuth(PayByLecture)} />

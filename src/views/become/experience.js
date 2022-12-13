@@ -1,13 +1,18 @@
 import React, { useState, useMemo, useEffect } from "react"
-import { Input, DatePicker, Col, Row, Checkbox, Form, Button, Select } from "antd"
+import { Input, DatePicker, Col, Row, Form, Button, Select } from "antd"
 import countryList from 'react-select-country-list'
 import axios from "axios"
 import jwt_decode from 'jwt-decode';
 import Moment from 'react-moment';
+import { useDispatch } from "react-redux";
+import {
+    register_next
+} from "redux/actions";
 const { TextArea } = Input;
 
 const Experience = (props) => {
     const [init, SetInit] = useState({});
+    const dispatch = useDispatch();
     useEffect(() => {
         SetInit(props);
     }, [props]);
@@ -40,6 +45,7 @@ const Experience = (props) => {
             .catch((err) => {
                 console.log(err.response.data.error);
             });
+        dispatch(register_next());
     };
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
@@ -99,7 +105,7 @@ const Experience = (props) => {
                                                 className="flex"
                                             >
                                                 <div className="iuput_h">{init.data && init.data.exstartDate1 ? <Moment format="YYYY-MM-DD" date={init.data.exstartDate1} /> : ' '}</div>
-                                                <div className="iuput_h">{init.data && init.data.exstartDate2 ? <Moment format="YYYY-MM-DD" date={init.data.exstartDate2} /> : ' '}</div>
+                                                {/* <div className="iuput_h">{init.data && init.data.exstartDate2 ? <Moment format="YYYY-MM-DD" date={init.data.exstartDate2} /> : ' '}</div> */}
                                             </Form.Item>
                                         </Col>
                                     </Row>
@@ -111,8 +117,8 @@ const Experience = (props) => {
                                                 <Form.Item
                                                     label="End Date"
                                                 >
-                                                    <div className="iuput_h">{init.data && init.data.exendDate1 ? <Moment format="YYYY-MM-DD" date={init.data.exendDate1} />: ' '}</div>
-                                                    <div className="iuput_h">{init.data && init.data.exendDate2 ? <Moment format="YYYY-MM-DD" date={init.data.exendDate2} /> : ' '}</div>
+                                                    <div className="iuput_h">{init.data && init.data.exendDate1 ? <Moment format="YYYY-MM-DD" date={init.data.exendDate1} /> : ' '}</div>
+                                                    {/* <div className="iuput_h">{init.data && init.data.exendDate2 ? <Moment format="YYYY-MM-DD" date={init.data.exendDate2} /> : ' '}</div> */}
                                                 </Form.Item>
                                             </Col>
                                         </Row>
@@ -182,7 +188,7 @@ const Experience = (props) => {
                             <Row>
                                 <Col lg={12} >
                                     <Row>
-                                        <Col className="px-2" lg={12} >
+                                        <Col className="px-2" lg={24} >
                                             <Form.Item
                                                 label="Start Date"
                                                 name="exstartDate1"
@@ -196,7 +202,7 @@ const Experience = (props) => {
                                                 <DatePicker className="mt-2" size="large w-full" onChange={(date, dateString) => setExstartDate1(dateString)} />
                                             </Form.Item>
                                         </Col>
-                                        <Col className="px-2" lg={12} >
+                                        {/* <Col className="px-2" lg={12} >
                                             <Form.Item
                                                 label="     "
                                                 name="exstartDate2"
@@ -209,13 +215,13 @@ const Experience = (props) => {
                                             >
                                                 <DatePicker className="mt-2" size="large w-full" onChange={(date, dateString) => setExstartDate2(dateString)} />
                                             </Form.Item>
-                                        </Col>
+                                        </Col> */}
                                     </Row>
                                 </Col>
                                 <Col lg={12} >
                                     {!currentWorkCheck &&
                                         <Row>
-                                            <Col className="px-2" lg={12} >
+                                            <Col className="px-2" lg={24} >
                                                 <Form.Item
                                                     label="End Date"
                                                     name="exendDate1"
@@ -229,7 +235,7 @@ const Experience = (props) => {
                                                     <DatePicker className="mt-2" size="large w-full" onChange={(date, dateString) => setExendDate1(dateString)} />
                                                 </Form.Item>
                                             </Col>
-                                            <Col className="px-2" lg={12} >
+                                            {/* <Col className="px-2" lg={12} >
                                                 <Form.Item
                                                     label=" "
                                                     name="exendDate2"
@@ -242,7 +248,7 @@ const Experience = (props) => {
                                                 >
                                                     <DatePicker className="mt-2" size="large w-full" onChange={(date, dateString) => setExendDate2(dateString)} />
                                                 </Form.Item>
-                                            </Col>
+                                            </Col> */}
                                         </Row>
                                     }
                                 </Col>

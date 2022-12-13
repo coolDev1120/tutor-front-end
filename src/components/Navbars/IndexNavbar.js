@@ -35,7 +35,7 @@ const items = [
 	{
 		key: '4',
 		label: (
-			<Link to="/general/myschedule">Edit schedule</Link>
+			<Link to="/general/myschedule">My schedule</Link>
 		),
 	},
 	{
@@ -96,7 +96,7 @@ export default function Navbar(props) {
 								<Link to="/general/home">Home</Link>
 							</li>
 							<li className="flex items-center px-5 py-4 font-bold">
-								<Link to="/general/myschedule">Find Tutors</Link>
+								<Link to="/general/dashboard">Find Tutors</Link>
 							</li>
 							<li className="flex items-center px-5 py-4 font-bold">
 								<Link to="/general/myschedule">Lectures</Link>

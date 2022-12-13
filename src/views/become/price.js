@@ -2,9 +2,12 @@ import React, { useState, useEffect } from "react"
 import { Input, Form, Button, Row, Col } from "antd"
 import axios from "axios"
 import jwt_decode from 'jwt-decode';
+import { useDispatch } from "react-redux";
+import { register_next } from "redux/actions";
 
 const Price = (props) => {
     const [init, SetInit] = useState({});
+    const dispatch = useDispatch();
 
     useEffect(() => {
         SetInit(props);
@@ -20,6 +23,7 @@ const Price = (props) => {
             .catch((err) => {
                 console.log(err.response.data.error);
             });
+        dispatch(register_next());
     };
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
@@ -30,7 +34,7 @@ const Price = (props) => {
             <div className="bg-white p-10 w-4/5 mx-auto" >
                 <div className="font-bold border-b-black-500 text-2xl mb-5"> Price </div>
                 <Row>
-                    <Col lg={12}>
+                    {/* <Col lg={12}>
                         <Form
                             name="basic"
                             layout="vertical"
@@ -46,8 +50,8 @@ const Price = (props) => {
                                 <div>{init.data && init.data.hourlyRate ? init.data.hourlyRate : ' '} $</div>
                             </Form.Item>
                         </Form>
-                    </Col>
-                    <Col lg={12}>
+                    </Col> */}
+                    <Col lg={24}>
                         <Form
                             name="basic"
                             layout="vertical"

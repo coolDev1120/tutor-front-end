@@ -3,10 +3,15 @@ import { Input, Form, Button, Space, Row, Col } from "antd"
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import axios from "axios"
 import jwt_decode from 'jwt-decode';
+import { useDispatch } from "react-redux";
+import {
+    register_next
+} from "redux/actions";
 const { TextArea } = Input;
 
 const Description = (props) => {
     const [init, SetInit] = useState({});
+    const dispatch = useDispatch();
 
     useEffect(() => {
         SetInit(props);
@@ -22,6 +27,7 @@ const Description = (props) => {
             .catch((err) => {
                 console.log(err.response.data.error);
             });
+        dispatch(register_next());
     };
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
@@ -32,7 +38,7 @@ const Description = (props) => {
             <div className="bg-white p-10 w-4/5 mx-auto" >
                 <div className="px-2 font-bold border-b-black-500 text-2xl mb-5"> Add Yuor Description </div>
                 <Row>
-                    <Col lg={12}>
+                    {/* <Col lg={12}>
                         <Form
                             name="basic"
                             layout="vertical"
@@ -59,8 +65,8 @@ const Description = (props) => {
                                 ))}
                             </Form.Item>
                         </Form>
-                    </Col>
-                    <Col lg={12}>
+                    </Col> */}
+                    <Col lg={24}>
                         <Form
                             name="basic"
                             layout="vertical"

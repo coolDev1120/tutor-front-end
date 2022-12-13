@@ -3,10 +3,15 @@ import { Input, DatePicker, Col, Row, Form, Button } from "antd"
 import axios from "axios"
 import jwt_decode from 'jwt-decode';
 import Moment from 'react-moment';
+import { useDispatch } from "react-redux";
+import {
+    register_next
+} from "redux/actions";
 const { TextArea } = Input;
 
 const Education = (props) => {
     const [init, SetInit] = useState({});
+    const dispatch = useDispatch();
 
     useEffect(() => {
         SetInit(props);
@@ -22,6 +27,7 @@ const Education = (props) => {
             .catch((err) => {
                 console.log(err.response.data.error);
             });
+        dispatch(register_next());
     };
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
@@ -36,7 +42,7 @@ const Education = (props) => {
             <div className="bg-white p-10 w-4/5 mx-auto" >
                 <div className="px-2 font-bold border-b-black-500 text-2xl mb-5"> Add Yuor Education </div>
                 <Row>
-                    <Col lg={12} className="preview">
+                    {/* <Col lg={12} className="preview">
                         <Form
                             name="basic"
                             layout="vertical"
@@ -91,8 +97,8 @@ const Education = (props) => {
                                 <div>{init.data && init.data.eddescription ? init.data.eddescription : ' '}</div>
                             </Form.Item>
                         </Form>
-                    </Col>
-                    <Col lg={12}>
+                    </Col> */}
+                    <Col lg={24}>
                         <Form
                             name="basic"
                             layout="vertical"

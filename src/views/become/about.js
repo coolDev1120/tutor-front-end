@@ -2,9 +2,14 @@ import React, { useState, useEffect } from "react"
 import { Select, Col, Row, Form, Button } from "antd"
 import axios from "axios"
 import jwt_decode from 'jwt-decode';
+import { useDispatch } from "react-redux";
+import {
+    register_next
+} from "redux/actions";
 
 const About = (props) => {
     const [init, SetInit] = useState({});
+    const dispatch = useDispatch();
 
     useEffect(() => {
         SetInit(props);
@@ -19,6 +24,9 @@ const About = (props) => {
             .catch((err) => {
                 console.log(err.response.data.error);
             });
+        dispatch(
+            register_next()
+        );
     };
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
@@ -28,7 +36,7 @@ const About = (props) => {
             <div className="bg-white p-10 w-4/5 mx-auto" >
                 <div className="font-bold border-b-black-500 text-2xl mb-5"> About </div>
                 <Row>
-                    <Col lg={12} className="preview">
+                    {/* <Col lg={12} className="preview">
                         <Form
                             name="basic"
                             layout="vertical"
@@ -65,8 +73,8 @@ const About = (props) => {
                                <div className="iuput_h">{init.data && init.data.currentsituation ? init.data.currentsituation : ' '}</div>
                             </Form.Item>
                         </Form>
-                    </Col>
-                    <Col lg={12}>
+                    </Col> */}
+                    <Col lg={24}>
                         <Form
                             name="basic"
                             initialValues={{ remember: true, }}
