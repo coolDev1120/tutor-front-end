@@ -66,7 +66,7 @@ const Experience = (props) => {
             <div className="bg-white p-10 w-4/5 mx-auto" >
                 <div className="px-2 font-bold border-b-black-500 text-2xl mb-5"> Add Work Experience </div>
                 <Row >
-                    <Col lg={12} className="preview">
+                    {/* <Col lg={12} className="preview">
                         <Form
                             name="basic"
                             layout="vertical"
@@ -105,7 +105,6 @@ const Experience = (props) => {
                                                 className="flex"
                                             >
                                                 <div className="iuput_h">{init.data && init.data.exstartDate1 ? <Moment format="YYYY-MM-DD" date={init.data.exstartDate1} /> : ' '}</div>
-                                                {/* <div className="iuput_h">{init.data && init.data.exstartDate2 ? <Moment format="YYYY-MM-DD" date={init.data.exstartDate2} /> : ' '}</div> */}
                                             </Form.Item>
                                         </Col>
                                     </Row>
@@ -118,7 +117,6 @@ const Experience = (props) => {
                                                     label="End Date"
                                                 >
                                                     <div className="iuput_h">{init.data && init.data.exendDate1 ? <Moment format="YYYY-MM-DD" date={init.data.exendDate1} /> : ' '}</div>
-                                                    {/* <div className="iuput_h">{init.data && init.data.exendDate2 ? <Moment format="YYYY-MM-DD" date={init.data.exendDate2} /> : ' '}</div> */}
                                                 </Form.Item>
                                             </Col>
                                         </Row>
@@ -133,8 +131,8 @@ const Experience = (props) => {
                                 <div className="iuput_h">{init.data && init.data.exsituation ? init.data.exsituation : ' '}</div>
                             </Form.Item>
                         </Form>
-                    </Col>
-                    <Col lg={12}>
+                    </Col> */}
+                    <Col lg={24}>
                         <Form
                             name="basic"
                             layout="vertical"
