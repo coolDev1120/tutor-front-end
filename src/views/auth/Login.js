@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios"
 import { Link } from "react-router-dom";
-import { Error, Success } from "../../components/Alert"
+import { Input, message, Typography } from "antd"
+const { Title } = Typography;
 
 export default function Login() {
 	const [user, setUser] = useState([]);
@@ -15,6 +16,10 @@ export default function Login() {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
+		if (!user.email || !user.password) {
+			message.error(`Type username and password.`);
+			return;
+		}
 		axios.post(`${process.env.REACT_APP_SERVER_URL}/signin`,
 			{ email: user.email, password: user.password, name: user.name })
 			.then(res => {
@@ -23,19 +28,19 @@ export default function Login() {
 				window.location = "/";
 			})
 			.catch((err) => {
-				setStatus({ "type": "error", "text": "Email or Password is incorrect.."})
+				setStatus({ "type": "error", "text": "Email or Password is incorrect.." })
 			});
 	}
 
 	const AlertShow = () => {
 		if (status.type === 'error') {
 			return (
-				<Error text="" content={status.text} />
+				message.error(`${status.text}`)
 			)
 		}
 		if (status.type === 'success') {
 			return (
-				<Success text="" content={status.text} />
+				message.success(`${status.text}`)
 			)
 		}
 		console.log(status)
@@ -49,9 +54,7 @@ export default function Login() {
 						<div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-200 border-0">
 							<div className="rounded-t mb-0 px-6 py-6">
 								<div className="text-center mb-3">
-									<h6 className="text-blueGray-500 text-sm font-bold">
-										Sign in
-									</h6>
+									<Title level={3}>Sign In</Title>
 								</div>
 							</div>
 							<div className="flex-auto px-4 lg:px-10 py-10 pt-0">
@@ -64,11 +67,11 @@ export default function Login() {
 										>
 											Email
 										</label>
-										<input
+										<Input
 											name="email"
 											type="email"
 											onChange={handleChange}
-											className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+											size="large"
 											placeholder="Email"
 										/>
 									</div>
@@ -80,17 +83,17 @@ export default function Login() {
 										>
 											Password
 										</label>
-										<input
+										<Input
 											name="password"
 											onChange={handleChange}
 											type="password"
-											className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+											size="large"
 											placeholder="Password"
 										/>
 									</div>
 									<div>
 										<label className="inline-flex items-center cursor-pointer">
-											<input
+											<Input
 												id="customCheckLogin"
 												type="checkbox"
 												className="form-checkbox border-0 rounded text-blueGray-700 ml-1 w-5 h-5 ease-linear transition-all duration-150"

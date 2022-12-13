@@ -11,6 +11,7 @@ import Footer from "components/Footers/Footer.js";
 
 
 // views
+import Home from "views/general/home";
 import Profile from "views/general/profile/index"
 import Tutor from "views/general/tutor/index"
 import Dashboard from "views/general/dashboard/Index";
@@ -27,6 +28,7 @@ const General = () => {
       <IndexNavbar fixed />
       <Chatbox />
       <Switch>
+        <Route path="/general/home" exact component={(Home)} />
         <Route path="/general/dashboard" exact component={(Dashboard)} />
         <Route path="/general/profile" exact component={RequireAuth(Profile)} />
         <Route path="/general/tutor/:id" exact component={RequireAuth(Tutor)} />
@@ -37,7 +39,7 @@ const General = () => {
 
 
         <Redirect from="/general/setting/" to="/general/profile" />
-        <Redirect from="/general/" to="/general/dashboard" />
+        <Redirect from="/general/" to="/general/home" />
       </Switch>
       <Footer />
     </>

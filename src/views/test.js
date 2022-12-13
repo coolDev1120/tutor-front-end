@@ -1,90 +1,116 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { Button, Drawer } from 'antd';
+import { ChatList, MessageList } from 'react-chat-elements';
+import { Input } from "antd"
+import { useSelector, useDispatch } from "react-redux";
+import "react-chat-elements/dist/main.css"
+import {
+    toggle_side_message_box
+} from "redux/actions";
 
-import { ZoomMtg } from '@zoomus/websdk';
+const Test = () => {
+    const dispatch = useDispatch();
+    var show = useSelector((state) => state.auth);
 
-ZoomMtg.setZoomJSLib('https://source.zoom.us/2.9.5/lib', '/av');
+    const [open, setOpen] = useState(false);
+    const [showflag, setShowflag] = useState('chat')
 
-ZoomMtg.preLoadWasm();
-ZoomMtg.prepareWebSDK();
-// loads language files, also passes any error messages to the ui
-ZoomMtg.i18n.load('en-US');
-ZoomMtg.i18n.reload('en-US');
+    useEffect(() => {
+        if (show.side_message_state){
+            setOpen(true);
+        }
+        if (!show.side_message_state) {
+            setOpen(false);
+        }
+    }, [show])
 
-function App() {
+    const handleChatClick = () =>{
+        setShowflag('message')
+    }
 
-  // setup your signature endpoint here: https://github.com/zoom/meetingsdk-sample-signature-node.js
-  var signatureEndpoint = 'http://localhost:3000'
-  // This Sample App has been updated to use SDK App type credentials https://marketplace.zoom.us/docs/guides/build/sdk-app
-  var sdkKey = ''
-  var meetingNumber = '123456789'
-  var role = 0
-  var leaveUrl = 'http://localhost:3000'
-  var userName = 'React'
-  var userEmail = ''
-  var passWord = ''
-  // pass in the registrant's token if your meeting or webinar requires registration. More info here:
-  // Meetings: https://marketplace.zoom.us/docs/sdk/native-sdks/web/client-view/meetings#join-registered
-  // Webinars: https://marketplace.zoom.us/docs/sdk/native-sdks/web/client-view/webinars#join-registered
-  var registrantToken = ''
+    const showDrawer = () => {
+        dispatch(
+            toggle_side_message_box()
+        );
+    };
 
-  function getSignature(e) {
-    e.preventDefault();
+    const onClose = () => {
+        setShowflag('chat')
+        setOpen(false);
+    };
 
-    fetch(signatureEndpoint, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        meetingNumber: meetingNumber,
-        role: role
-      })
-    }).then(res => res.json())
-      .then(response => {
-        startMeeting(response.signature)
-      }).catch(error => {
-        console.error(error)
-      })
-  }
+    const chatbox = () => {
+        if (showflag === 'chat') {
+            return (
+                <div>
+                    <ChatList
+                        className='chat-list'
+                        onClick={handleChatClick}
+                        dataSource={[
+                            {
+                                avatar: 'https://avatars.githubusercontent.com/u/80540635?v=4',
+                                alt: 'kursat_avatar',
+                                title: 'Kursat',
+                                subtitle: "Why don't we go to the No Way Home movie this weekend ?",
+                                date: new Date(),
+                                unread: 3,
+                            }
+                        ]} />
+                    <ChatList
+                        className='chat-list'
+                        dataSource={[
+                            {
+                                avatar: 'https://avatars.githubusercontent.com/u/80540635?v=4',
+                                alt: 'kursat_avatar',
+                                title: 'Kursat',
+                                subtitle: "Why don't we go to the No Way Home movie this weekend ?",
+                                date: new Date(),
+                                unread: 3,
+                            }
+                        ]} />
+                </div>
+            )
+        }
+        if (showflag === 'message') {
+            return (
+                <div>
+                    <MessageList
+                        className='message-list'
+                        lockable={true}
+                        toBottomHeight={'100%'}
+                        dataSource={[
+                            {
+                                position: "left",
+                                type: "text",
+                                title: "Kursat",
+                                text: "Give me a message list example !",
+                            },
+                            {
+                                position: "right",
+                                type: "text",
+                                title: "Emre",
+                                text: "That's all.",
+                            },
+                        ]}
+                    />
+                </div>
+            )
+        }
 
-  function startMeeting(signature) {
-    document.getElementById('zmmtg-root').style.display = 'block'
+    }
+    return (
+        <div className='container mx-auto' style={{ width: "80%" }}>
+            <Button type="primary" onClick={showDrawer}>
+                Open
+            </Button>
+            <Drawer title="Basic Drawer" placement="right" onClose={onClose} open={open}>
+                {chatbox()}
+                <Input className='absolute bottom-0' placeholder="Type here..." multiline={true} />
+            </Drawer>
 
-    ZoomMtg.init({
-      leaveUrl: leaveUrl,
-      success: (success) => {
-        console.log(success)
-
-        ZoomMtg.join({
-          signature: signature,
-          meetingNumber: meetingNumber,
-          userName: userName,
-          sdkKey: sdkKey,
-          userEmail: userEmail,
-          passWord: passWord,
-          tk: registrantToken,
-          success: (success) => {
-            console.log(success)
-          },
-          error: (error) => {
-            console.log(error)
-          }
-        })
-
-      },
-      error: (error) => {
-        console.log(error)
-      }
-    })
-  }
-
-  return (
-    <div className="App">
-      <main>
-        <h1>Zoom Meeting SDK Sample React</h1>
-
-        <button onClick={getSignature}>Join Meeting</button>
-      </main>
-    </div>
-  );
+        </div>
+    )
 }
 
-export default App;
+export default Test
+

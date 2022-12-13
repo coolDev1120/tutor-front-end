@@ -30,7 +30,7 @@ ReactDOM.render(
 
         <Route path="/test" exact component={Test} />
 
-        <Redirect from="/" to="/general/dashboard" />
+        <Redirect from="/" to="/general/home" />
         <Redirect from="*" to="/" />
       </Switch>
     </BrowserRouter>

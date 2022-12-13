@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Drawer } from 'antd';
+import { Drawer } from 'antd';
 import { ChatList, MessageList } from 'react-chat-elements';
 import { Input } from "antd"
 import { useSelector, useDispatch } from "react-redux";
@@ -16,7 +16,7 @@ const Test = () => {
     const [showflag, setShowflag] = useState('chat')
 
     useEffect(() => {
-        if (show.side_message_state){
+        if (show.side_message_state) {
             setOpen(true);
         }
         if (!show.side_message_state) {
@@ -24,7 +24,7 @@ const Test = () => {
         }
     }, [show])
 
-    const handleChatClick = () =>{
+    const handleChatClick = () => {
         setShowflag('message')
     }
 
@@ -99,16 +99,10 @@ const Test = () => {
 
     }
     return (
-        <div className='container mx-auto' style={{ width: "80%" }}>
-            <Button type="primary" onClick={showDrawer}>
-                Open
-            </Button>
-            <Drawer title="Basic Drawer" placement="right" onClose={onClose} open={open}>
-                {chatbox()}
-                <Input className='absolute bottom-0' placeholder="Type here..." multiline={true} />
-            </Drawer>
-
-        </div>
+        <Drawer title="Basic Drawer" placement="right" onClose={onClose} open={open}>
+            {chatbox()}
+            <Input className='absolute bottom-0' placeholder="Type here..." multiline={true} />
+        </Drawer>
     )
 }
 
