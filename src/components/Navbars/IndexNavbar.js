@@ -23,7 +23,7 @@ const items = [
 	{
 		key: '2',
 		label: (
-			<Link to="/general/become/">Become a Totor</Link>
+			<Link to="/general/become/">Become a Tutor</Link>
 		),
 	},
 	{
@@ -35,13 +35,13 @@ const items = [
 	{
 		key: '4',
 		label: (
-			<a onClick={logout}>Logout</a>
+			<Link to="/general/myschedule">Edit schedule</Link>
 		),
 	},
 	{
 		key: '5',
 		label: (
-			<Link to="/general/myschedule">Edit schedule</Link>
+			<a onClick={logout}>Logout</a>
 		),
 	},
 ];

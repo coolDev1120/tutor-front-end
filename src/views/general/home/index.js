@@ -155,20 +155,11 @@ const Home = () => {
                             </div>
                         </Col>
                         <Col lg={12} md={24} className="px-8 text-center py-4">
-                            <div className="relative" style={{ height: "414px" }}>
-                                <img
-                                    style={{ top: "0px", right: "0px" }}
-                                    className="w-full rounded-lg max-w-md mx-auto absolute"
-                                    src={require("assets/img/natasha-hall-9rBmRhysF9Y-unsplash.webp").default}
-                                    alt="..."
-                                />
-                                <img
-                                    style={{ top: "115px", left: "0px" }}
-                                    className="w-full rounded-lg max-w-md mx-auto absolute"
-                                    src={require("assets/img/thisisengineering-raeng-TXxiFuQLBKQ-unsplash.webp").default}
-                                    alt="..."
-                                />
-                            </div>
+                            <img
+                                className="w-full rounded-lg max-w-lg mx-auto "
+                                src={require("assets/img/Screenshot_2.png").default}
+                                alt="..."
+                            />
                         </Col>
                     </Row>
                 </div>
@@ -207,10 +198,66 @@ const Home = () => {
                 </div>
             </div>
             <div className="container mx-auto">
-                <div className="text-center">
+                <div className="text-center px-4">
                     <p className="text-4xl font-bold pr-10">What our users say</p>
                     <p className="discription">Reprehenderit nemo quod tempore doloribus ratione distinctio quis quidem<br />vitae sunt reiciendi</p>
                 </div>
+                <Row>
+                    <Col lg={8} md={8} className="p-5">
+                        <div className="p-5 border-2 rounded-lg">
+                            <div className="flex">
+                                <div>
+                                    <img
+                                        className="w-12 rounded-full max-w-lg mx-auto mr-3"
+                                        src={require("assets/img/team-4-470x470.png").default}
+                                        alt="..."
+                                    />
+                                </div>
+                                <div className="flex items-center font-bold">
+                                    <div>Gregory Jones</div>
+                                </div>
+                            </div>
+                            <div className="py-3 text-base"> This software works outstandingly well. It grudgingly improves my skills by a lot. </div>
+                            <div className="discription"> 8:21 PM / Dec 21, 2022 </div>
+                        </div>
+                    </Col>
+                    <Col lg={8} md={8} className="p-5">
+                        <div className="p-5 border-2 rounded-lg">
+                            <div className="flex">
+                                <div>
+                                    <img
+                                        className="w-12 rounded-full max-w-lg mx-auto mr-3"
+                                        src={require("assets/img/team-4-470x470.png").default}
+                                        alt="..."
+                                    />
+                                </div>
+                                <div className="flex items-center font-bold">
+                                    <div>Sylvia Taylor</div>
+                                </div>
+                            </div>
+                            <div className="py-3 text-base"> It really saves me time and effort. @YourCompany is exactly what our business has been lacking. It's all good. Definitely worth the investment. I would also like to say thank you to all your staff! </div>
+                            <div className="discription"> 8:21 PM / Dec 21, 2022 </div>
+                        </div>
+                    </Col>
+                    <Col lg={8} md={8} className="p-5">
+                        <div className="p-5 border-2 rounded-lg">
+                            <div className="flex">
+                                <div>
+                                    <img
+                                        className="w-12 rounded-full max-w-lg mx-auto mr-3"
+                                        src={require("assets/img/team-4-470x470.png").default}
+                                        alt="..."
+                                    />
+                                </div>
+                                <div className="flex items-center font-bold">
+                                    <div>Gregory Jones</div>
+                                </div>
+                            </div>
+                            <div className="py-3 text-base"> This software works outstandingly well. It grudgingly improves my skills by a lot. </div>
+                            <div className="discription"> 8:21 PM / Dec 21, 2022 </div>
+                        </div>
+                    </Col>
+                </Row>
             </div>
         </>
     )
