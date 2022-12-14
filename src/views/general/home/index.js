@@ -1,7 +1,7 @@
 import React from "react"
 import { Row, Col, Button, Divider } from "antd"
 import { Link } from "react-router-dom";
-import { CloudUploadOutlined } from '@ant-design/icons';
+import { CloudUploadOutlined, BarChartOutlined, DollarCircleOutlined } from '@ant-design/icons';
 
 const Home = () => {
     return (
@@ -170,7 +170,7 @@ const Home = () => {
                     <Row className="py-20">
                         <Col lg={8} md={8} className="px-10 py-5 text-center">
                             <div>
-                                <CloudUploadOutlined className="p-3 text-3xl rounded-xl" style={{ background: "#fff" }} />
+                                <BarChartOutlined className="p-3 text-3xl rounded-xl" style={{ background: "#fff" }} />
                             </div>
                             <div className="pl-5">
                                 <div className="font-bold text-lg py-5">Access to Kids Accounts</div>
@@ -182,16 +182,16 @@ const Home = () => {
                                 <CloudUploadOutlined className="p-3 text-3xl rounded-xl" style={{ background: "#fff" }} />
                             </div>
                             <div className="pl-5">
-                                <div className="font-bold text-lg py-5">Access to Kids Accounts</div>
+                                <div className="font-bold text-lg py-5">Assessment Monthly Report</div>
                                 <div className="discription">Describe a key benefit that your product provides for your customers – and explain the impact it can have.</div>
                             </div>
                         </Col>
                         <Col lg={8} md={8} className="px-10 py-5 text-center">
                             <div>
-                                <CloudUploadOutlined className="p-3 text-3xl rounded-xl" style={{ background: "#fff" }} />
+                                <DollarCircleOutlined className="p-3 text-3xl rounded-xl" style={{ background: "#fff" }} />
                             </div>
                             <div className="pl-5">
-                                <div className="font-bold text-lg py-5">Access to Kids Accounts</div>
+                                <div className="font-bold text-lg py-5">Primary Benefit Three</div>
                                 <div className="discription">Describe a key benefit that your product provides for your customers – and explain the impact it can have.</div>
                             </div>
                         </Col>

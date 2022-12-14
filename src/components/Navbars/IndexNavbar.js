@@ -102,7 +102,7 @@ export default function Navbar(props) {
 								<Link to="/general/myschedule">Lectures</Link>
 							</li>
 							<li className="flex items-center px-5 py-4 font-bold">
-								<Link to="/general/myschedule">Report</Link>
+								<Link to="/general/report">Report</Link>
 							</li>
 							<li className="flex items-center px-5 py-4 font-bold">
 								<Link to="/general/myschedule">FAQ</Link>

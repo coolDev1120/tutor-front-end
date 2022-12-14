@@ -8,7 +8,6 @@ import ScheduleSelector from 'react-schedule-selector'
 import jwt_decode from 'jwt-decode';
 import moment from "moment"
 import { SmileOutlined } from '@ant-design/icons';
-import Shcedule from "./schedule";
 
 const Tutor = () => {
     const [api, contextHolder] = notification.useNotification();
@@ -47,30 +46,53 @@ const Tutor = () => {
 
     const options = [
         {
-            value: 'Language essentials',
-            label: 'Language essentials',
+            value: 'English',
+            label: 'English',
         },
         {
-            value: 'Exam prep',
-            label: 'Exam prep',
+            value: 'France',
+            label: 'France',
         },
         {
-            value: 'Everyday conversation',
-            label: 'Everyday conversation',
+            value: 'Japanese',
+            label: 'Japanese',
         },
         {
-            value: 'English for work',
-            label: 'English for work',
+            value: 'Chinese',
+            label: 'Chinese',
         },
-    ];
+    ]
+
+    const options2 = [
+        {
+            value: 'United states',
+            label: 'United states',
+        },
+        {
+            value: 'France',
+            label: 'France',
+        },
+        {
+            value: 'Japan',
+            label: 'Japan',
+        },
+        {
+            value: 'China',
+            label: 'China',
+        },
+    ]
 
     const handleChange = (value) => {
         console.log(`selected ${value}`);
-    };
+    }
 
 
     // modal
-    const showModal = (email) => {
+    const showModal = (email, id) => {
+        axios.post(`${process.env.REACT_APP_SERVER_URL}/getTutorById`, { id: id })
+            .then(res => {
+                setTutorInfo(res.data.data[0])
+            })
 
         if (!localStorage.getItem('token')) {
             openNotification()
@@ -98,7 +120,7 @@ const Tutor = () => {
     }
 
     const handleOk = () => {
-        if (userschedule.length == 0) {
+        if (userschedule.length === 0) {
             message.error(`You must select schedule.`);
             return
         }
@@ -112,6 +134,9 @@ const Tutor = () => {
                 message.success(`successfully.`);
                 setIsModalOpen(false);
             })
+        setTimeout(() => {
+            window.location = `/general/checkout/${tutorInfo.tutor_id}`
+        }, 500);
     };
 
     const handleMessageMoalOk = () => {
@@ -131,9 +156,6 @@ const Tutor = () => {
                 setMessageModal(false)
                 setSendMessageText("")
                 message.success(`Your message successfully send.`);
-                setTimeout(() => {
-                    window.location = `/general/checkout/${tutorInfo.tutor_id}`
-                }, 1000);
             })
     }
 
@@ -184,7 +206,7 @@ const Tutor = () => {
             <div className="container mx-auto items-center flex flex-wrap">
                 <div className="w-full my-10 px-4" style={{ display: "flex" }}>
                     <div className="form-group w-full">
-                        <label>Topic</label>
+                        <label>I want to learn</label>
                         <Select
                             className="pr-4 mt-2"
                             mode="multiple"
@@ -196,7 +218,7 @@ const Tutor = () => {
                         />
                     </div>
                     <div className="form-group" style={{ width: '100%' }}>
-                        <label>Day</label>
+                        <label>Country of birth</label>
                         <Select
                             className="pr-4 mt-2"
                             mode="multiple"
@@ -204,7 +226,7 @@ const Tutor = () => {
                             placeholder="Topic"
                             onChange={handleChange}
                             size="large"
-                            options={options}
+                            options={options2}
                         />
                     </div>
                     <div className="form-group" style={{ width: '100%' }}>
@@ -284,13 +306,13 @@ const Tutor = () => {
                         <Col lg={24} className="px-4">
                             {tutors.length > 0 && tutors.map((value, key) => (
                                 <Row key={key} className="tutor_each p-10 mb-5 border rounded-lg">
-                                    <Col lg={6} md={6} xs={6}>
+                                    <Col lg={4} md={6} xs={6}>
                                         <img
                                             className="w-160 tutorimg"
                                             src={`${process.env.REACT_APP_SERVER_URL}/` + value.image}
                                         />
                                     </Col>
-                                    <Col className="px-3" lg={12} md={18} xs={18}>
+                                    <Col className="px-3" lg={15} md={18} xs={18}>
                                         <div className="title">
                                             <div className="flex">
                                                 <span className="font-bold font-5 text-xl pr-4">
@@ -322,7 +344,7 @@ const Tutor = () => {
                                         </div>
                                         <a className="text-right text-blue-700">Read More</a>
                                     </Col>
-                                    <Col lg={6} md={24} xs={24}>
+                                    <Col lg={5} md={24} xs={24}>
                                         <Row>
                                             <Col lg={24} xs={12}>
                                                 <div className="flex">
@@ -340,7 +362,7 @@ const Tutor = () => {
                                                 </div>
                                             </Col>
                                             <Col lg={24} xs={12}>
-                                                <Button value={value.email} type="primary" onClick={() => showModal(value.email)} className="w-full mt-3">Book trial Lessson</Button>
+                                                <Button value={value.email} type="primary" onClick={() => showModal(value.email, value.tutor_id)} className="w-full mt-3">Book Lessson</Button>
                                                 <Button onClick={() => showMessageModal(value.tutor_id)} className="w-full mt-3">Message</Button>
                                             </Col>
                                         </Row>

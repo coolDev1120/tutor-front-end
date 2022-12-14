@@ -12,7 +12,7 @@ export default function Index() {
 				<Row>
 					<Col lg={12} md={24} className="px-4 text-center py-4">
 						<img
-							className="w-full rounded-lg max-w-xl mx-auto"
+							className="w-full rounded-lg max-w-xl"
 							src={require("assets/img/malte-helmhold-mQmuv-3jAOc-unsplash.webp").default}
 							alt="..."
 						/>

@@ -32,10 +32,10 @@ const Pay = () => {
     };
     return (
         <div className="container mx-auto">
-            <div style={{ margin: "200px 0px 200px 0px" }}>
+            <div >
                 <Row>
                     <Col className='p-3' lg={10}>
-                        <div className="bg-white p-10 rounded">
+                        <div className="p-10 rounded bg-grey">
                             <div className="flex">
                                 <img
                                     className="rounded-xl"
@@ -70,7 +70,7 @@ const Pay = () => {
                     <Col lg={14}>
                         <Row>
                             <Col className='p-3' lg={24}>
-                                <div id="payment_paypal" className="bg-white p-10 rounded">
+                                <div id="payment_paypal" className="bg-grey p-10 rounded">
                                     <PayPalScriptProvider options={{ "client-id": "test" }}>
                                         <PayPalButtons
                                             createOrder={(data, actions) => {
@@ -95,7 +95,7 @@ const Pay = () => {
                                 </div>
                             </Col>
                             <Col className='p-3' lg={24}>
-                                <div className="bg-white p-10 rounded">
+                                <div className="bg-grey p-10 rounded">
                                     <div className="flex text-base">
                                         <div className="flex mr-3">
                                             <div className="mr-1" style={{ marginTop: "-2px" }}>

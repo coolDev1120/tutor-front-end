@@ -23,9 +23,15 @@ export default function Login() {
 		axios.post(`${process.env.REACT_APP_SERVER_URL}/signin`,
 			{ email: user.email, password: user.password, name: user.name })
 			.then(res => {
-				setStatus({ "type": "success", "text": "Login Success!" })
-				localStorage.setItem('token', res.data.token);
-				window.location = "/";
+				console.log(res.data.flag)
+				if (res.data.flag === "success") {
+					setStatus({ "type": "success", "text": "Login Success!" })
+					localStorage.setItem('token', res.data.token);
+					window.location = "/";
+				}
+				else {
+					message.error(`${res.data.error}`);
+				}
 			})
 			.catch((err) => {
 				setStatus({ "type": "error", "text": "Email or Password is incorrect.." })

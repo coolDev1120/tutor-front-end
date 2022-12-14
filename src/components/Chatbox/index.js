@@ -7,6 +7,8 @@ import "react-chat-elements/dist/main.css"
 import {
     toggle_side_message_box
 } from "redux/actions";
+import axios from "axios"
+import jwt_decode from 'jwt-decode';
 
 const Test = () => {
     const dispatch = useDispatch();
@@ -22,6 +24,10 @@ const Test = () => {
         if (!show.side_message_state) {
             setOpen(false);
         }
+        axios.post(`${process.env.REACT_APP_SERVER_URL}/saveMessage`, {email:  jwt_decode(localStorage.getItem('token')).email})
+            .then(res => {
+                console.log(res.data)
+            })
     }, [show])
 
     const handleChatClick = () => {

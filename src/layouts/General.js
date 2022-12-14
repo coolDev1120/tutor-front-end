@@ -21,6 +21,8 @@ import Myschedule from "../views/general/profile/myschedule"
 import PayByLecture from "views/general/payment/payBylecture"
 import Chatbox from "components/Chatbox/index"
 import Register from "views/become/register"
+import Report from "views/general/report"
+import Report_detail from "views/general/report/detail"
 
 const General = () => {
 
@@ -38,7 +40,8 @@ const General = () => {
         <Route path="/general/editschedule" exact component={RequireAuth(Editschedule)} />
         <Route path="/general/myschedule" exact component={RequireAuth(Myschedule)} />
         <Route path="/general/checkout/:id" exact component={RequireAuth(PayByLecture)} />
-
+        <Route path="/general/report" exact component={RequireAuth(Report)} />
+        <Route path="/general/report/detail/:id" exact component={RequireAuth(Report_detail)} />
 
         <Redirect from="/general/setting/" to="/general/profile" />
         <Redirect from="/general/" to="/general/home" />

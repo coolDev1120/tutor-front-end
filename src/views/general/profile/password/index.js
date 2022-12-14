@@ -23,11 +23,10 @@ const Account = () => {
             password: password
 
         }
-        axios.post(`${process.env.REACT_APP_SERVER_URL}/setting/changeAccount`, sendData)
+        axios.post(`${process.env.REACT_APP_SERVER_URL}/setting/changePassword`, sendData)
             .then(res => {
-                message.success(`Your account successfully updated.`);
+                message.success(`Your password successfully updated.`);
             })
-
     }
 
     return (
