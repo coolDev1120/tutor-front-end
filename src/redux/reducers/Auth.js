@@ -3,7 +3,8 @@ import {
   LOGIN_OUT,
   SIDE_MESSAGE_BOX,
   NEXT_STAGE,
-  STAGE_RESET
+  STAGE_RESET,
+  SHOW_MESSAGE_BOX
 } from "../shared/ActionTypes.js";
 
 const INIT_STATE = {
@@ -42,6 +43,12 @@ const authReducer = (state = INIT_STATE, action) => {
       return {
         ...state,
         register_state: 0
+      }
+    }
+    case SHOW_MESSAGE_BOX: {
+      return {
+        ...state,
+        showMessageByemail: action.payload
       }
     }
     default:

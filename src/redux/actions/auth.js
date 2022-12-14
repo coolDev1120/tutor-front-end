@@ -3,7 +3,8 @@ import {
   LOGIN_OUT,
   SIDE_MESSAGE_BOX,
   NEXT_STAGE,
-  STAGE_RESET
+  STAGE_RESET,
+  SHOW_MESSAGE_BOX
 } from "../shared/ActionTypes.js";
 
 
@@ -47,4 +48,14 @@ export const register_reset = () => {
     })
   }
 }
+
+export const show_message = (email) => {
+  return (dispatch) => {
+    dispatch({
+      type: SHOW_MESSAGE_BOX,
+      payload: email
+    })
+  }
+}
+
 

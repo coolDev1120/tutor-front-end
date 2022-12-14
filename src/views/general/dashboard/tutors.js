@@ -8,8 +8,13 @@ import ScheduleSelector from 'react-schedule-selector'
 import jwt_decode from 'jwt-decode';
 import moment from "moment"
 import { SmileOutlined } from '@ant-design/icons';
+import { useSelector, useDispatch } from "react-redux";
+import {
+    toggle_side_message_box
+} from "redux/actions";
 
 const Tutor = () => {
+    const dispatch = useDispatch();
     const [api, contextHolder] = notification.useNotification();
     const [schedule, setSchedule] = useState([])
     const [userschedule, setUserSchedule] = useState([])
@@ -106,17 +111,26 @@ const Tutor = () => {
         setIsModalOpen(true);
     };
 
-    const showMessageModal = (id) => {
+    // send messsage action
+    const showMessageModal = (id, email) => {
         setSendMessageText("")
         if (!localStorage.getItem('token')) {
             openNotification()
             return
         }
-        axios.post(`${process.env.REACT_APP_SERVER_URL}/getTutorById`, { id: id })
+        axios.post(`${process.env.REACT_APP_SERVER_URL}/getTutorById`, { id: id, email: email, me: jwt_decode(localStorage.getItem('token')).email })
             .then(res => {
-                setTutorInfo(res.data.data[0])
+                console.log(res.data)
+                if (res.data.flag === "use") {
+                    dispatch(
+                        toggle_side_message_box()
+                    );
+                }
+                else {
+                    setTutorInfo(res.data.data[0])
+                    setMessageModal(true);
+                }
             })
-        setMessageModal(true);
     }
 
     const handleOk = () => {
@@ -363,7 +377,7 @@ const Tutor = () => {
                                             </Col>
                                             <Col lg={24} xs={12}>
                                                 <Button value={value.email} type="primary" onClick={() => showModal(value.email, value.tutor_id)} className="w-full mt-3">Book Lessson</Button>
-                                                <Button onClick={() => showMessageModal(value.tutor_id)} className="w-full mt-3">Message</Button>
+                                                <Button onClick={() => showMessageModal(value.tutor_id, value.email)} className="w-full mt-3">Message</Button>
                                             </Col>
                                         </Row>
                                     </Col>

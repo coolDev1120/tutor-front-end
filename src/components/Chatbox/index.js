@@ -2,20 +2,18 @@ import React, { useState, useEffect } from 'react';
 import { Drawer } from 'antd';
 import { ChatList, MessageList } from 'react-chat-elements';
 import { Input } from "antd"
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import "react-chat-elements/dist/main.css"
-import {
-    toggle_side_message_box
-} from "redux/actions";
 import axios from "axios"
 import jwt_decode from 'jwt-decode';
-
 const Test = () => {
-    const dispatch = useDispatch();
     var show = useSelector((state) => state.auth);
 
     const [open, setOpen] = useState(false);
     const [showflag, setShowflag] = useState('chat')
+    const [userlist, setUserlist] = useState({})
+    const [chatlist, setChatlist] = useState([])
+    const [unread, setUnread] = useState({})
 
     useEffect(() => {
         if (show.side_message_state) {
@@ -24,21 +22,40 @@ const Test = () => {
         if (!show.side_message_state) {
             setOpen(false);
         }
-        axios.post(`${process.env.REACT_APP_SERVER_URL}/saveMessage`, {email:  jwt_decode(localStorage.getItem('token')).email})
-            .then(res => {
-                console.log(res.data)
-            })
+        if (localStorage.getItem('token') && jwt_decode(localStorage.getItem('token')).email) {
+            axios.post(`${process.env.REACT_APP_SERVER_URL}/getmessage`, { email: jwt_decode(localStorage.getItem('token')).email })
+                .then(res => {
+                    console.log(res.data.data)
+                    setUserlist(res.data.data)
+                    setUnread(res.data.unread)
+                })
+        }
+        // if (show.showMessageByemail !== "") {
+        //     handleChatClick(show.showMessageByemail)
+        // }
     }, [show])
 
-    const handleChatClick = () => {
-        setShowflag('message')
-    }
 
-    const showDrawer = () => {
-        dispatch(
-            toggle_side_message_box()
-        );
-    };
+    // show message list
+    const handleChatClick = (email) => {
+        setShowflag('message')
+        if (localStorage.getItem('token') && jwt_decode(localStorage.getItem('token')).email) {
+            axios.post(`${process.env.REACT_APP_SERVER_URL}/getchatlist`, { email: email, me: jwt_decode(localStorage.getItem('token')).email })
+                .then(res => {
+                    console.log(res.data.data)
+                    var temp = [];
+                    for (let i = 0; i < res.data.data.length; i++) {
+                        temp.push({
+                            position: res.data.data[i].email === jwt_decode(localStorage.getItem('token')).email ? "right" : "left",
+                            type: "text",
+                            title: res.data.data[i].user,
+                            text: res.data.data[i].message,
+                        })
+                    }
+                    setChatlist(temp)
+                })
+        }
+    }
 
     const onClose = () => {
         setShowflag('chat')
@@ -49,31 +66,22 @@ const Test = () => {
         if (showflag === 'chat') {
             return (
                 <div>
-                    <ChatList
-                        className='chat-list'
-                        onClick={handleChatClick}
-                        dataSource={[
-                            {
-                                avatar: 'https://avatars.githubusercontent.com/u/80540635?v=4',
-                                alt: 'kursat_avatar',
-                                title: 'Kursat',
-                                subtitle: "Why don't we go to the No Way Home movie this weekend ?",
-                                date: new Date(),
-                                unread: 3,
-                            }
-                        ]} />
-                    <ChatList
-                        className='chat-list'
-                        dataSource={[
-                            {
-                                avatar: 'https://avatars.githubusercontent.com/u/80540635?v=4',
-                                alt: 'kursat_avatar',
-                                title: 'Kursat',
-                                subtitle: "Why don't we go to the No Way Home movie this weekend ?",
-                                date: new Date(),
-                                unread: 3,
-                            }
-                        ]} />
+                    {userlist.length > 0 && userlist.map((value, key) => (
+                        <ChatList
+                            key={key}
+                            className='chat-list'
+                            onClick={() => handleChatClick(value.email)}
+                            dataSource={[
+                                {
+                                    avatar: `${process.env.REACT_APP_SERVER_URL}/` + value.image,
+                                    alt: 'kursat_avatar',
+                                    title: value.username,
+                                    subtitle: value.message,
+                                    date: value.createdAt,
+                                    unread: unread[value.email] ? unread[value.email] : 0,
+                                }
+                            ]} />
+                    ))}
                 </div>
             )
         }
@@ -84,20 +92,7 @@ const Test = () => {
                         className='message-list'
                         lockable={true}
                         toBottomHeight={'100%'}
-                        dataSource={[
-                            {
-                                position: "left",
-                                type: "text",
-                                title: "Kursat",
-                                text: "Give me a message list example !",
-                            },
-                            {
-                                position: "right",
-                                type: "text",
-                                title: "Emre",
-                                text: "That's all.",
-                            },
-                        ]}
+                        dataSource={chatlist}
                     />
                 </div>
             )
@@ -105,10 +100,13 @@ const Test = () => {
 
     }
     return (
-        <Drawer title="Basic Drawer" placement="right" onClose={onClose} open={open}>
-            {chatbox()}
-            <Input className='absolute bottom-0' placeholder="Type here..." multiline={true} />
-        </Drawer>
+        <div>
+            <Drawer title="Chating Box" placement="right" onClose={onClose} open={open}>
+                {chatbox()}
+                <Input disabled={showflag === 'message' ? false : true} className='absolute bottom-0 left-0' placeholder="Type here..." multiline={true} />
+            </Drawer>
+        </div>
+
     )
 }
 
