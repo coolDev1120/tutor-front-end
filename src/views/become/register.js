@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Button, message, Steps } from 'antd';
+import {  Steps } from 'antd';
 import About from "./about"
 import Photo from "./experience"
 import Education from "./education"
@@ -7,8 +7,8 @@ import Description from "./description"
 import Price from "./price"
 import Availability from "./availability"
 import Certification from "./certification"
-import axios from "axios"
-import jwt_decode from 'jwt-decode';
+// import axios from "axios"
+// import jwt_decode from 'jwt-decode';
 import { useSelector } from "react-redux";
 
 const steps = [

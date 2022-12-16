@@ -1,20 +1,20 @@
-import React, { useState, useEffect } from "react"
+import React from "react"
 import { Input, Form, Button, Row, Col, message } from "antd"
 import TextArea from "antd/es/input/TextArea";
 import axios from "axios"
 import jwt_decode from 'jwt-decode';
-import { useDispatch } from "react-redux";
-import {
-    register_reset
-} from "redux/actions";
+// import { useDispatch } from "react-redux";
+// import {
+//     register_reset
+// } from "redux/actions";
 
 const Certification = (props) => {
-    const [init, SetInit] = useState({});
-    const dispatch = useDispatch();
+    // const [init, SetInit] = useState({});
+    // const dispatch = useDispatch();
 
-    useEffect(() => {
-        SetInit(props);
-    }, [props]);
+    // useEffect(() => {
+    //     SetInit(props);
+    // }, [props]);
 
     const onFinish = (values) => {
         values.email = jwt_decode(localStorage.getItem('token')).email

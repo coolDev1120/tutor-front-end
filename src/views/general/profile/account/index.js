@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 import React, { useState, useEffect } from 'react'
 import { Input, Button, Upload, message, Select } from 'antd'
 import ImgCrop from 'antd-img-crop';
@@ -71,7 +72,7 @@ const Account = () => {
                 <div className="form-group pb-5">
                     <label>Profile image</label>
                     <div className='flex  mt-2' >
-                        <img className='mr-3' style={{ width: "100px", height: "100px" }} src={`${process.env.REACT_APP_SERVER_URL}/` + image} />
+                        <img className='mr-3 rounded-lg' style={{ width: "100px", height: "100px" }} src={`${process.env.REACT_APP_SERVER_URL}/` + image} />
                         <ImgCrop rotate>
                             <Dragger  {...props}>
                                 <div>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React from "react"
 import { Select, Col, Row, Form, Button } from "antd"
 import axios from "axios"
 import jwt_decode from 'jwt-decode';
@@ -8,12 +8,12 @@ import {
 } from "redux/actions";
 
 const About = (props) => {
-    const [init, SetInit] = useState({});
+    // const [init, SetInit] = useState({});
     const dispatch = useDispatch();
 
-    useEffect(() => {
-        SetInit(props);
-    }, [props]);
+    // useEffect(() => {
+    //     SetInit(props);
+    // }, [props]);
 
     const onFinish = (values) => {
         values.email = jwt_decode(localStorage.getItem('token')).email
@@ -36,44 +36,6 @@ const About = (props) => {
             <div className="bg-white p-10 w-4/5 mx-auto" >
                 <div className="font-bold border-b-black-500 text-2xl mb-5"> About </div>
                 <Row>
-                    {/* <Col lg={12} className="preview">
-                        <Form
-                            name="basic"
-                            layout="vertical"
-                            onFinish={onFinish}
-                            onFinishFailed={onFinishFailed}
-                            autoComplete="off"
-
-                        >
-                            <Form.Item
-                                label="Subject taught"
-                                className="px-2"
-                            >
-                                <div className="iuput_h">{init.data && init.data.subjecttaught ? init.data.subjecttaught : ' '}</div>
-                            </Form.Item>
-
-                            <Form.Item
-                                label="Choose your language level"
-                                className="px-2"
-                            >
-                                <div className="iuput_h">{init.data && init.data.enlevel ? init.data.enlevel : ' '}</div>
-                            </Form.Item>
-
-                            <Form.Item
-                                label="Describe your teaching experience"
-                                className="px-2"
-                            >
-                                <div className="iuput_h">{init.data && init.data.teachingexperience ? init.data.teachingexperience : ' '}</div>
-                            </Form.Item>
-
-                            <Form.Item
-                                label="Describe your current situation"
-                                className="px-2"
-                            >
-                               <div className="iuput_h">{init.data && init.data.currentsituation ? init.data.currentsituation : ' '}</div>
-                            </Form.Item>
-                        </Form>
-                    </Col> */}
                     <Col lg={24}>
                         <Form
                             name="basic"

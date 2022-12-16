@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React from "react"
 import { Input, Form, Button, Space, Row, Col } from "antd"
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import axios from "axios"
@@ -10,12 +10,12 @@ import {
 const { TextArea } = Input;
 
 const Description = (props) => {
-    const [init, SetInit] = useState({});
+    // const [init, SetInit] = useState({});
     const dispatch = useDispatch();
 
-    useEffect(() => {
-        SetInit(props);
-    }, [props]);
+    // useEffect(() => {
+    //     SetInit(props);
+    // }, [props]);
 
     const onFinish = (values) => {
         values.email = jwt_decode(localStorage.getItem('token')).email

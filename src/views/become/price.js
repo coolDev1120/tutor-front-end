@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React from "react"
 import { Input, Form, Button, Row, Col } from "antd"
 import axios from "axios"
 import jwt_decode from 'jwt-decode';
@@ -6,12 +6,12 @@ import { useDispatch } from "react-redux";
 import { register_next } from "redux/actions";
 
 const Price = (props) => {
-    const [init, SetInit] = useState({});
+    // const [init, SetInit] = useState({});
     const dispatch = useDispatch();
 
-    useEffect(() => {
-        SetInit(props);
-    }, [props]);
+    // useEffect(() => {
+    //     SetInit(props);
+    // }, [props]);
 
     const onFinish = (values) => {
         console.log('Success:', values);

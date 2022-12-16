@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable jsx-a11y/alt-text */
 import React, { useState, useEffect } from "react"
 import { Link } from "react-router-dom";
@@ -8,7 +9,7 @@ import ScheduleSelector from 'react-schedule-selector'
 import jwt_decode from 'jwt-decode';
 import moment from "moment"
 import { SmileOutlined } from '@ant-design/icons';
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
     toggle_side_message_box
 } from "redux/actions";

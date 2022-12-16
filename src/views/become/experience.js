@@ -1,9 +1,9 @@
-import React, { useState, useMemo, useEffect } from "react"
+import React, { useState, useMemo } from "react"
 import { Input, DatePicker, Col, Row, Form, Button, Select } from "antd"
 import countryList from 'react-select-country-list'
 import axios from "axios"
 import jwt_decode from 'jwt-decode';
-import Moment from 'react-moment';
+// import Moment from 'react-moment';
 import { useDispatch } from "react-redux";
 import {
     register_next
@@ -11,19 +11,19 @@ import {
 const { TextArea } = Input;
 
 const Experience = (props) => {
-    const [init, SetInit] = useState({});
+    // const [init, SetInit] = useState({});
     const dispatch = useDispatch();
-    useEffect(() => {
-        SetInit(props);
-    }, [props]);
+    // useEffect(() => {
+    //     SetInit(props);
+    // }, [props]);
 
     const [currentWorkCheck, setCurrentWorkCheck] = useState(false);
     const [country, setCountry] = useState('')
 
     const [exstartDate1, setExstartDate1] = useState('')
-    const [exstartDate2, setExstartDate2] = useState('')
+    // const [exstartDate2, setExstartDate2] = useState('')
     const [exendDate1, setExendDate1] = useState('')
-    const [exendDate2, setExendDate2] = useState('')
+    // const [exendDate2, setExendDate2] = useState('')
 
     const options = useMemo(() => countryList().getData(), [])
 
@@ -34,9 +34,9 @@ const Experience = (props) => {
         console.log('Success:', values);
         values.email = jwt_decode(localStorage.getItem('token')).email
         values.exendDate1 = exendDate1;
-        values.exendDate2 = exendDate2;
+        // values.exendDate2 = exendDate2;
         values.exstartDate1 = exstartDate1;
-        values.exstartDate2 = exstartDate2;
+        // values.exstartDate2 = exstartDate2;
 
         axios.post(`${process.env.REACT_APP_SERVER_URL}/become/experience`, values)
             .then(res => {
@@ -52,14 +52,14 @@ const Experience = (props) => {
     };
 
 
-    const onChange = (date, dateString) => {
-        console.log(dateString);
-    };
+    // const onChange = (date, dateString) => {
+    //     console.log(dateString);
+    // };
 
-    const onCurrentWorkChange = (e) => {
-        setCurrentWorkCheck(!currentWorkCheck);
-        console.log(`checked = ${e.target.checked}`);
-    };
+    // const onCurrentWorkChange = (e) => {
+    //     setCurrentWorkCheck(!currentWorkCheck);
+    //     console.log(`checked = ${e.target.checked}`);
+    // };
 
     return (
         <div className="container">

@@ -1,0 +1,18 @@
+.ant-drawer-body {
+    padding-bottom: 48px !important;
+}
+.rce-mbox-text{
+    white-space: pre-line !important;
+}
+.rce-mbox-right {
+    background: #4454ff;
+}
+.rce-mbox-right .rce-mbox-text {
+    color: white;
+}
+.rce-mbox-right .rce-mbox-right-notch {
+    fill: #4454ff;
+}
+.rce-mbox-right .rce-mbox-title span {
+color: #fff;
+}

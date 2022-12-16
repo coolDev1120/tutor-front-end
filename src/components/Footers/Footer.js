@@ -7,21 +7,21 @@ export default function Footer() {
 			<footer className="relative pt-8 pb-6" style={{ marginTop: "200px", background: "#ebebeb" }}>
 				<div className="container mx-auto px-4">
 					<div className="flex flex-wrap text-center">
-						<ul className="flex flex-col lg:flex-row list-none">
-							<li className="flex items-center px-5 py-4 font-bold">
-								<Link to="/general/home">Home</Link>
+						<ul className="flex flex-col lg:flex-row list-none flex-1">
+							<li className="flex items-center px-5 py-4 font-bold flex-1">
+								<Link className="flex-1" to="/general/home">Home</Link>
 							</li>
-							<li className="flex items-center px-5 py-4 font-bold">
-								<Link to="/general/dashboard">Find Tutors</Link>
+							<li className="flex items-center px-5 py-4 font-bold flex-1">
+								<Link className="flex-1" to="/general/dashboard">Find Tutors</Link>
 							</li>
-							<li className="flex items-center px-5 py-4 font-bold">
-								<Link to="/general/myschedule">Lectures</Link>
+							<li className="flex items-center px-5 py-4 font-bold flex-1">
+								<Link className="flex-1" to="/general/myschedule">Lectures</Link>
 							</li>
-							<li className="flex items-center px-5 py-4 font-bold">
-								<Link to="/general/myschedule">Report</Link>
+							<li className="flex items-center px-5 py-4 font-bold flex-1">
+								<Link className="flex-1" to="/general/myschedule">Report</Link>
 							</li>
-							<li className="flex items-center px-5 py-4 font-bold">
-								<Link to="/general/myschedule">FAQ</Link>
+							<li className="flex items-center px-5 py-4 font-bold flex-1">
+								<Link className="flex-1" to="/general/myschedule">FAQ</Link>
 							</li>
 						</ul>
 					</div>

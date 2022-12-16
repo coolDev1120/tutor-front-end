@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react"
+import React from "react"
 import { Input, DatePicker, Col, Row, Form, Button } from "antd"
 import axios from "axios"
 import jwt_decode from 'jwt-decode';
-import Moment from 'react-moment';
+// import Moment from 'react-moment';
 import { useDispatch } from "react-redux";
 import {
     register_next
@@ -10,12 +10,12 @@ import {
 const { TextArea } = Input;
 
 const Education = (props) => {
-    const [init, SetInit] = useState({});
+    // const [init, SetInit] = useState({});
     const dispatch = useDispatch();
 
-    useEffect(() => {
-        SetInit(props);
-    }, [props]);
+    // useEffect(() => {
+    //     SetInit(props);
+    // }, [props]);
 
     const onFinish = (values) => {
         console.log('Success:', values);

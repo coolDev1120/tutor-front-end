@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import jwt_decode from 'jwt-decode';
-import { Button, Dropdown } from 'antd';
+import { Button, Dropdown, message } from 'antd';
 import { useSelector, useDispatch } from "react-redux";
 import {
 	toggle_side_message_box
@@ -53,6 +53,10 @@ export default function Navbar(props) {
 	const [username, Setusername] = useState('');
 
 	const toogleChatbox = () => {
+		if (!localStorage.getItem('token') || !jwt_decode(localStorage.getItem('token')).role) {
+			message.info("You have to login!")
+			return
+		}
 		dispatch(
 			toggle_side_message_box()
 		);
@@ -93,22 +97,22 @@ export default function Navbar(props) {
 					>
 						<ul className="flex flex-col lg:flex-row list-none lg:ml-auto">
 							<li className="flex items-center px-5 py-4 font-bold">
-								<Link to="/general/home">Home</Link>
+								<Link className={(window.location.href.indexOf("/general/home") !== -1 ? "text-lightBlue-500 hover:text-lightBlue-600" : "")} to="/general/home">Home</Link>
 							</li>
 							<li className="flex items-center px-5 py-4 font-bold">
-								<Link to="/general/dashboard">Find Tutors</Link>
+								<Link className={(window.location.href.indexOf("/general/dashboard") !== -1 ? "text-lightBlue-500 hover:text-lightBlue-600" : "")} to="/general/dashboard">Find Tutors</Link>
 							</li>
 							<li className="flex items-center px-5 py-4 font-bold">
-								<Link to="/general/myschedule">Lectures</Link>
+								<Link className={(window.location.href.indexOf("/general/lecture") !== -1 ? "text-lightBlue-500 hover:text-lightBlue-600" : "")} to="/general/lecture" >Lectures</Link>
 							</li>
 							<li className="flex items-center px-5 py-4 font-bold">
-								<Link to="/general/report">Report</Link>
+								<Link className={(window.location.href.indexOf("/general/report") !== -1 ? "text-lightBlue-500 hover:text-lightBlue-600" : "")} to="/general/report">Report</Link>
 							</li>
 							<li className="flex items-center px-5 py-4 font-bold">
-								<Link to="/general/myschedule">FAQ</Link>
+								<Link className={(window.location.href.indexOf("/general/faq") !== -1 ? "text-lightBlue-500 hover:text-lightBlue-600" : "")} to="/general/faq">FAQ</Link>
 							</li>
 							<li className="flex items-center px-5 py-4 font-bold">
-								<Link onClick={toogleChatbox}>Message</Link>
+								<Link to="#" onClick={toogleChatbox}>Message</Link>
 							</li>
 						</ul>
 						<ul className="flex flex-col lg:flex-row list-none lg:ml-auto">

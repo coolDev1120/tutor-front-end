@@ -27,7 +27,7 @@ export default function Admin() {
         <HeaderStats />
         <div className="px-4 md:px-10 mx-auto w-full -m-24">
           <Switch>
-            <Route path="/admin/dashboard" exact component={RequireAdmin(Dashboard)} />
+            <Route path="/admin/dashboard" exact component={(Dashboard)} />
             <Route path="/admin/maps" exact component={RequireAdmin(Maps)} />
             <Route path="/admin/settings" exact component={RequireAdmin(Settings)} />
             <Route path="/admin/tables" exact component={RequireAdmin(Tables)} />

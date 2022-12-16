@@ -23,6 +23,9 @@ import Chatbox from "components/Chatbox/index"
 import Register from "views/become/register"
 import Report from "views/general/report"
 import Report_detail from "views/general/report/detail"
+import Faq from "views/general/FAQ"
+import Lecture from "views/general/Lecture"
+
 
 const General = () => {
 
@@ -42,6 +45,8 @@ const General = () => {
         <Route path="/general/checkout/:id" exact component={RequireAuth(PayByLecture)} />
         <Route path="/general/report" exact component={RequireAuth(Report)} />
         <Route path="/general/report/detail/:id" exact component={RequireAuth(Report_detail)} />
+        <Route path="/general/faq" exact component={Faq} />
+        <Route path="/general/lecture" exact component={Lecture} />
 
         <Redirect from="/general/setting/" to="/general/profile" />
         <Redirect from="/general/" to="/general/home" />

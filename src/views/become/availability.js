@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react"
-import { Select, Col, Row, Form, Button, Tag } from "antd"
+import React from "react"
+import { Select, Col, Row, Form, Button } from "antd"
 import axios from "axios"
 import jwt_decode from 'jwt-decode';
 import { useDispatch } from "react-redux";
@@ -8,13 +8,13 @@ import {
 } from "redux/actions";
 
 const Availability = (props) => {
-    const [init, SetInit] = useState({});
+    // const [init, SetInit] = useState({});
     const dispatch = useDispatch();
 
 
-    useEffect(() => {
-        SetInit(props);
-    }, [props]);
+    // useEffect(() => {
+    //     SetInit(props);
+    // }, [props]);
 
     const onFinish = (values) => {
         values.email = jwt_decode(localStorage.getItem('token')).email
