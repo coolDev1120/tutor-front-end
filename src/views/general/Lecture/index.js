@@ -19,7 +19,7 @@ const Lecture = () => {
                             alt="..."
                         />
                     </Col>
-                    <Col lg={12} md={24} className="px-4 flex items-center">
+                    <Col lg={12} md={24} className="px-4 flex items-center md:text-center md:py-5">
                         <div>
                             <p className="text-4xl font-bold pr-10">Start Lectures With Your Friends </p>
                             <p className="discription">To start your lecture, find tutors who is suitable for you</p>

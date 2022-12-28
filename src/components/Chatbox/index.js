@@ -11,6 +11,7 @@ import $ from 'jquery';
 import "./style.css"
 const { TextArea } = Input;
 
+// const ENDPOINT = process.env.SOCK_URL;
 const ENDPOINT = "http://localhost:3030";
 const socket = socketIOClient(ENDPOINT);
 
